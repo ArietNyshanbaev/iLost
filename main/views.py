@@ -6,6 +6,8 @@ from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
+import re
 #impoer of models 
 
 def main(request):
@@ -130,3 +132,44 @@ def signout(request):
 
 	logout(request)
 	return redirect(request.META.get('HTTP_REFERER'))
+
+def signup(request):
+	# redirect not authenticated users to main page
+	if request.user.is_authenticated():
+		return redirect(reverse("main:main"))
+	# initialize variables
+	args={}
+	args.update(csrf(request))
+	validation = True
+	# Query objects from model
+	all_users = User.objects.all()
+
+	if request.POST:
+		first_name = request.POST.get('first_name', '')
+		email = request.POST.get('e_mail', '')
+		password = request.POST.get('password', '')
+		username = email
+
+		# email validation
+		users_using_email = all_users.filter(email=email)
+
+		if not re.match(r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$", email):
+			validation = False
+			args['email_error'] = 'Неправильно введен email'
+		else:
+		    if users_using_email.count() > 0:
+			    validation = False
+			    args['email_error'] = 'Этот email уже зарегистрирован'
+			    args['email'] = email
+			    args['first_name'] = first_name
+		if validation == False:
+			return render(request, 'main/signup.html', args)
+		else:
+			user = User.objects.create_user(username=username, email=email, password=password)
+			user.first_name = first_name
+			user.save()
+			user = authenticate(username=username, password=password)
+			login(request, user)
+			return redirect(reverse('main:main'))
+	else:
+		return render(request, 'main/signup.html', args)

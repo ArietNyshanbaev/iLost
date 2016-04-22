@@ -49,7 +49,7 @@
                     
                     <!-- logo -->
                     <div class="navbar-brand">
-                        <a class="smooth-scroll" data-section="#home" href="#home" >
+                        <a href="{% url 'main:main' %}" >
                             <h4 style="color:white; font-size:24px;"><span style="color:red"></span>Lost.Kg</h4>
                         </a>
                     </div>
@@ -58,62 +58,82 @@
 
                 <!-- main nav -->
                 <nav class="collapse navbar-collapse navbar-right" role="navigation">
-                    <div class="main-menu">
+                    <div class="main-menu-fake">
                         <ul id="nav" class="nav navbar-nav">
-                            <li class="scroll"><a href="#about" data-section="#about">О нас</a></li>
-                            <li class="scroll"><a href="#portfolio" data-section="#portfolio">Как это работает</a></li>
+                            <li class="scroll"><a href="{% url 'main:main'%}#portfolio" data-section="#portfolio">Как это работает</a></li>
                             <li class="scroll"><a href="#contact-area" data-section="#contact-area">Обратная связь</a></li>   
+                            <li class="scroll"><a href="{% url 'main:signin' %}">Войти</a></li>
                         </ul>
                     </div>
                 </nav>
                 <!-- /main nav -->
-                
             </div>
         </header>
 
     <section id="main-slider">
     <div class="container">
-        <div class="buttons-wrapper" style="position: absolute; top:50%; left:35%; z-index:1000; background-color:RGBA(0,0,0,0.41); border:5px solid RGBA(0,0,0,0.41);">
-
+        <div class="buttons-wrapper" style="position: absolute; top:15%; left:35%; z-index:1000; background-color:RGBA(0,0,0,0.41); border:5px solid RGBA(0,0,0,0.41);">
+            {% if error_message %}
+                <div class="alert alert-danger" role="alert">{{error_message}}<br></div>
+            {% endif %}
             <div class="buttons-wrapper-inner">
                 <div class="activate-id-code">
-                    <!--<form method="post" action="{% url 'main:check_activation'%}" id="activateCode" style="display:inline">
+                    <form method="post" class="text-center" action="{% url 'main:signup'%}" id="activateCode">
                     {% csrf_token %}
-                        <p style="color:white">Введите Код Активации</p>
-                        <div class="input-append" style="display:inline">
-                            <input class="id-code-input" id="id-code-input1" style="margin-right: -3px;height: 33.5px;" required type="text" placeholder="12345AF" name="idcode" id="idcode" onmouseout="javascript:autoFill();"/>
-                            <input type="submit" style="margin-right: -4px;padding: 5.7px 15px;" class="btn btn-info btn-activate-now" value="Активировать Сейчас" id="activatenow"/>
-                        </div>-->
-                         <p  style="margin-right: -4px;padding: 5.7px 15px;" class="btn btn-info btn-activate-now">Активировать Сейчас</p>
-                    </form>
-                    <!--
-                    <form method="post" action="{% url 'main:report'%}" style="display:inline">
-                    {% csrf_token %}
-                        <input type="hidden" value="" name="card_id" id="card_id" required>
-                        <input type="submit" name="btnreport" id="btnreport" style="padding: 5.7px 15px;"class="btn btn-primary btn-found" value="Сообщить о Находке"/>
-                    </form>
-                    -->
-                    <p  style="padding: 5.7px 15px;"class="btn btn-primary btn-found">Сообщить о Находке</p>
+                        <h2 class="text-center" style="color:orange">Регистрация</h2>
+                        {% if error_message %}
+                            <div class="alert alert-danger" role="alert">{{error_message}}<br></div>
+                        {% endif %}
 
+                        <br>
+                        {% if email_error %}
+                              <div class="alert alert-danger" role="alert">{{email_error}}</div>
+                          {% endif %}
+                        <div class="form-group">
+                          <label for="input-11" style="color: white">
+                           Email
+                          </label>
+                          <input style="margin-right: 123px; height: 33.5px;" required name="e_mail" value="{{email}}" class="form-control" type="text" id="input-11" />
+                        </div>
+
+                          {% if password_error %}
+                            <div class="alert alert-danger" role="alert">{{password_error}}</div>
+                          {% endif %}
+                        <div class="form-group">
+                          <label  for="input-13" style="color: white">
+                            Пароль
+                          </label>
+                          <input required name="password" type="password" class="form-control"  id="input-13" />
+                        </div>
+
+                        {% if first_name_error %}
+                            <div class="alert alert-danger" role="alert">{{first_name_error}}</div>
+                        {% endif %}
+                        <div class="form-group">
+                            <label for="input-14" style="color: white">
+                            Фамилия и имя
+                            </label>
+                            <input required name="first_name" value="{{first_name}}" class="form-control" type="text" id="input-14" />
+                        </div>
+                        <br>
+                        <div class="input-append text-center">
+                            <input type="submit" style="margin-right: -4px;padding: 5.7px 15px;" class="btn btn-info btn-activate-now" value="Зарегистрироваться " id="activatenow"/>
+                        </div>
+                         <br>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 
         <div class="owl-carousel">
-        <
             <div class="item" style="background-image: url({% static 'images/slider/bg11.jpg'%});">
                 <div class="slider-inner">
                     <div class="container">
                         <div class="row">
                             <div class="col-md-2"></div>
                             <div class="col-md-8">
-                                <div class="carousel-content text-center">
-                                    <br><br><br><br>
-                                    <div style="background-color:RGBA(255,255,255,0.9);"><h1>Добро пожаловать в проект <span style="color:red">LOST.kg!</span></h1>
-                                        <p style="font-size:20px; color:#272727">Защита от потери ценных вещей</p>
-                                    </div>
-                                </div>
+                               
                             </div>
                         </div>
                     </div>
@@ -125,11 +145,6 @@
                         <div class="row">
                         <div class="col-md-2"></div>
                             <div class="col-md-8">
-                                <div class="carousel-content text-center">
-                                <br><br><br><br>
-                                    <div style="background-color:RGBA(255,255,255,0.9);"><h1>Добро пожаловать в проект <span style="color:red">LOST.kg!</span></h1>
-                                        <p style="font-size:20px; color:#272727">Защита от потери ценных вещей</p>
-                                    </div>
                             </div>
                         </div>
                         </div>
@@ -142,11 +157,6 @@
                         <div class="row">
                         <div class="col-md-2"></div>
                             <div class="col-md-8">
-                                <div class="carousel-content text-center">
-                               <br><br><br><br>
-                                    <div style="background-color:RGBA(255,255,255,0.9);"><h1>Добро пожаловать в наш проект <span style="color:red">LOST.kg!</span></h1>
-                                        <p style="font-size:20px; color:#272727">Защита от потери ценных вещей</p>
-                                    </div>
                             </div>
                         </div>
                     </div>
@@ -155,55 +165,6 @@
             
         </div><!--/.owl-carousel-->
     </section><!--/#main-slider-->
-
-    <section id="portfolio" >
-        <div class="container">
-
-            <div class="section-header">
-                <h2 class="section-title text-center wow fadeInDown">Как работает <span style="color:red;">Lost</span></h2>
-            </div>
-
-            <div class="row">
-                <div class="features">
-                    <div class="col-sm-12 col-md-4 col-lg-4 wow fadeInUp" data-wow-duration="300ms" data-wow-delay="0ms">
-                        <div class="features-item">
-                            <div class="features-icon">
-                                <img height="35" width="35" src="{% static 'images/buy.png'%}">
-                            </div>
-                            <h3 class="features-title font-alt"><span style="color:red">П</span>отерия или <span style="color:red">Н</span>аходка</h3>
-                            Владелец теряет где то (кошку, собаку, телефoн, ключи, докyменты и тд. ) <br>
-                            Или кто то находит  где то (кошку, собаку, телефoн, ключи, докyменты и тд. ) 
-                        </div>
-                    </div>
-
-                    <div class="col-sm-12 col-md-4 col-lg-4 wow fadeInUp" data-wow-duration="300ms" data-wow-delay="100ms">
-                        <div class="features-item">
-                            <div class="features-icon">
-                                <img height="35" width="35" src="{% static 'images/activate.png'%}">
-                            </div>
-                            <h3 class="features-title font-alt"><span style="color:red">А</span>ктивация / <span style="color:red">Р</span>егистрация</h3>
-                            Человек который нашел что то или потерял регистрирует данную вещь на сайте Lost.kg
-                        </div>
-                    </div>
-
-                    <div class="col-sm-12 col-md-4 col-lg-4 wow fadeInUp" data-wow-duration="300ms" data-wow-delay="300ms">
-                        <div class="features-item">
-                            <div class="features-icon">
-                                <img height="35" width="35" src="{% static 'images/found.png'%}">
-                            </div>
-                            <h3 class="features-title font-alt"><span style="color:red">Х</span>еппи <span style="color:red">Э</span>нд</h3>
-                            Нашедший потерянной вещи и Потерявший находят друг друга и все прекрасно (Happy End).
-                        </div>
-                    </div>
-
-                </div>
-            </div><!--/.row-->    
-        </div><!--/.container-->
-    </section><!--/#services-->
-
-    
-
-
     <section id="contact-area">
         <div class="container">
             <div class="row">
@@ -227,7 +188,6 @@
                             <label for="subject">Тема</label>
                             <input type="text" id="subject" name="subject" class="form-control" placeholder="Тема" required>
                         </div>
-
                     </div>
                     <div class="col-lg-6 animated animate-from-right" style="opacity: 1; right: 0px;">
                         <div class="form-group">
@@ -237,9 +197,7 @@
                     </div>
                     <div class="clearfix"></div>
                     <div class="text-center">
-
                           <button type="submit" class="btn btn-primary btn-lg btn-send-msg">Отправить</button>
-
                     </div>
 
                 </form>
