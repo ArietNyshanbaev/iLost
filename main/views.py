@@ -1,17 +1,18 @@
 ﻿#importings
-from django.shortcuts import render_to_response, redirect, get_object_or_404
+from django.shortcuts import render_to_response, redirect, get_object_or_404, render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Cardstick, Mail
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout
 #impoer of models 
 
 def main(request):
 	#initialize variables
 	args={}
 	args.update(csrf(request))
-	return render_to_response('main/main.html',args)
+	return render(request, 'main/main.html',args)
 
 def check_activation(request):
 	#initialize variables
@@ -100,4 +101,26 @@ def message(request):
 		mail.save()
 	return redirect(reverse('main:main'))
 
+def signin(request):
+	# redirect to main page authorized users
+	if request.user.is_authenticated():
+		return redirect(reverse("main:main"))
+	# initialize variables
+	args={}
+	args.update(csrf(request))
 
+	if request.POST:
+		username = request.POST['username']
+		password = request.POST['password']
+
+		user = authenticate(username=username, password=password)
+
+		if user is not None:
+			if user.is_active:
+				login(request, user)
+				return redirect(reverse('main:main'))
+		else:
+			args['error_message'] = "Имя пользователя и пароль не совпадают, попробуйте еще раз. "
+			return render(request, 'main/signin.html', args)
+	else:
+		return render(request, 'main/signin.html', args)
