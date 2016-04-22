@@ -17,10 +17,6 @@
     <link href="{% static 'css/prettyPhoto.css'%}" rel="stylesheet">
     <link href="{% static 'css/main.css'%}" rel="stylesheet">
     <link href="{% static 'css/responsive.css'%}" rel="stylesheet">
-
-
-
-   
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
@@ -63,7 +59,7 @@
                             <li class="scroll"><a href="#portfolio" data-section="#portfolio">Как это работает</a></li>
                             <li class="scroll"><a href="#contact-area" data-section="#contact-area">Обратная связь</a></li>   
                             {% if user.is_authenticated %}
-                            <li class="scroll"><a href="#portfolio">{{user.username}}</a></li>
+                            <li class="scroll"><a href="{% url 'main:profile'%}">{{user.username}}</a></li>
                             <li><a href="{% url 'main:signout' %}">Выйти</a> </li>
                             {% else %}
                             <li><a href="{% url 'main:signin' %}">Войти</a></li>

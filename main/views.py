@@ -8,6 +8,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 import re
+from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import reverse , reverse_lazy
 #impoer of models 
 
 def main(request):
@@ -173,3 +175,11 @@ def signup(request):
 			return redirect(reverse('main:main'))
 	else:
 		return render(request, 'main/signup.html', args)
+
+@login_required(login_url=reverse_lazy('main:signin'))
+def profile(request):
+	# initialize variables
+	args={}
+	args.update(csrf(request))
+
+	return render(request, 'main/profile.html', args)

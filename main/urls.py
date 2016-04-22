@@ -12,7 +12,7 @@ urlpatterns = patterns('',
     url(r'^signup$', 'main.views.signup',name='signup'),
     url(r'^signout$', 'main.views.signout',name='signout'),
     url(r'^signin$', 'main.views.signin',name='signin'),
-    url(r'^profile$', 'main.views.message',name='message'),
+    url(r'^profile$', 'main.views.profile',name='profile'),
 
 
     # url(r'^category/(?P<category_id>.+)$', 'main.views.category',name='category'),

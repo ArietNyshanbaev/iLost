@@ -60,10 +60,10 @@
                 <nav class="collapse navbar-collapse navbar-right" role="navigation">
                     <div class="main-menu-fake">
                         <ul id="nav" class="nav navbar-nav">
-                            <li><a href="{% url 'main:main'%}#about">О нас</a></li>
                             <li class="scroll"><a href="{% url 'main:main'%}#portfolio" data-section="#portfolio">Как это работает</a></li>
                             <li class="scroll"><a href="#contact-area" data-section="#contact-area">Обратная связь</a></li>   
-                            <li class="scroll"><a href="{% url 'main:signup' %}">Зарегистрироваться</a></li>
+                            <li class="scroll"><a href="{% url 'main:profile'%}">{{user.username}}</a></li>
+                            <li><a href="{% url 'main:signout' %}">Выйти</a> </li>
                         </ul>
                     </div>
                 </nav>
@@ -73,41 +73,14 @@
 
     <section id="main-slider">
     <div class="container">
-        <div class="buttons-wrapper" style="position: absolute; top:45%; left:35%; z-index:1000; background-color:RGBA(0,0,0,0.41); border:5px solid RGBA(0,0,0,0.41);">
-            {% if error_message %}
-                <div class="alert alert-danger" role="alert">{{error_message}}<br></div>
-            {% endif %}
+        <div class="buttons-wrapper" style="position: absolute; top:15%; left:35%; z-index:1000; background-color:RGBA(0,0,0,0.41); border:5px solid RGBA(0,0,0,0.41);">
             <div class="buttons-wrapper-inner">
-                <div class="activate-id-code">
-                    <form method="post" class="text-center" action="{% url 'main:signin'%}" id="activateCode">
-                    {% csrf_token %}
-                        <h2 class="text-center" style="color:orange">Войти</h2>
-                        <div class="form-group ">
-                          <label for="input-10">
-                            <span style="color: white">Логин</span>
-                          </label>
-                          <input style="margin-right: 123px; height: 33.5px;" required name = "username" class="form-control" placeholder="bachu@gmail.com" type="text" id="input-10" />
-                        </div>
-                        <div class="form-group">
-                          <label for="input-11">
-                            <span style="color: white">Пароль</span>
-                          </label>
-                          <input required name = "password" class="form-control" type="password" id="input-11" />
-                        </div>
-                        <br>
-                        <div class="input-append text-center">
-                            <input type="submit" style="margin-right: -4px;padding: 5.7px 15px;" class="btn btn-info btn-activate-now" value="&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspВойти&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp" id="activatenow"/>
-                        </div>
-                         <br>
-                    </form>
-                    <!--
-                    <form method="post" action="{% url 'main:report'%}" style="display:inline">
-                    {% csrf_token %}
-                        <input type="hidden" value="" name="card_id" id="card_id" required>
-                        <input type="submit" name="btnreport" id="btnreport" style="padding: 5.7px 15px;"class="btn btn-primary btn-found" value="Сообщить о Находке"/>
-                    </form>
-                    -->
-
+                <div class="activate-id-code text-center" >
+                    <h2 style="color:orange">Профиль</h2>
+                    <br>
+                    <h3 style="color: white">Email : {{user.username}}</h3>
+                    <hr>
+                    <h3 style="color: white">Ф.И.О : {{user.first_name}}</h3>
                 </div>
             </div>
         </div>
@@ -120,12 +93,7 @@
                         <div class="row">
                             <div class="col-md-2"></div>
                             <div class="col-md-8">
-                                <div class="carousel-content text-center">
-                                    <br><br><br><br>
-                                    <div style="background-color:RGBA(255,255,255,0.9);"><h1>Добро пожаловать в проект <span style="color:red">LOST.kg!</span></h1>
-                                        <p style="font-size:20px; color:#272727">Защита от потери ценных вещей</p>
-                                    </div>
-                                </div>
+                               
                             </div>
                         </div>
                     </div>
@@ -137,12 +105,6 @@
                         <div class="row">
                         <div class="col-md-2"></div>
                             <div class="col-md-8">
-                                <div class="carousel-content text-center">
-                                <br><br><br><br>
-                                    <div style="background-color:RGBA(255,255,255,0.9);"><h1>Добро пожаловать в проект <span style="color:red">LOST.kg!</span></h1>
-                                        <p style="font-size:20px; color:#272727">Защита от потери ценных вещей</p>
-                                    </div>
-                            </div>
                         </div>
                         </div>
                     </div>
@@ -154,11 +116,6 @@
                         <div class="row">
                         <div class="col-md-2"></div>
                             <div class="col-md-8">
-                                <div class="carousel-content text-center">
-                               <br><br><br><br>
-                                    <div style="background-color:RGBA(255,255,255,0.9);"><h1>Добро пожаловать в наш проект <span style="color:red">LOST.kg!</span></h1>
-                                        <p style="font-size:20px; color:#272727">Защита от потери ценных вещей</p>
-                                    </div>
                             </div>
                         </div>
                     </div>
@@ -190,7 +147,6 @@
                             <label for="subject">Тема</label>
                             <input type="text" id="subject" name="subject" class="form-control" placeholder="Тема" required>
                         </div>
-
                     </div>
                     <div class="col-lg-6 animated animate-from-right" style="opacity: 1; right: 0px;">
                         <div class="form-group">
@@ -200,9 +156,7 @@
                     </div>
                     <div class="clearfix"></div>
                     <div class="text-center">
-
                           <button type="submit" class="btn btn-primary btn-lg btn-send-msg">Отправить</button>
-
                     </div>
 
                 </form>
