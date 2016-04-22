@@ -1,0 +1,142 @@
+{%load staticfiles%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>iLost.Kg</title>
+	<!-- core CSS -->
+    <link href="{% static 'css/bootstrap.min.css'%}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.css'%}'%}" rel="stylesheet">
+    <link href="{% static 'css/font-awesome.min.css'%}" rel="stylesheet">
+    <link href="{% static 'css/animate.min.css'%}" rel="stylesheet">
+    <link href="{% static 'css/owl.carousel.css'%}" rel="stylesheet">
+    <link href="{% static 'css/owl.transitions.css'%}" rel="stylesheet">
+    <link href="{% static 'css/prettyPhoto.css'%}" rel="stylesheet">
+    <link href="{% static 'css/main.css'%}" rel="stylesheet">
+    <link href="{% static 'css/responsive.css'%}" rel="stylesheet">
+
+
+
+   
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->       
+    <link rel="shortcut icon" href="images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+
+
+</head><!--/head-->
+<body id="home" class="homepage">
+
+
+    <header class="navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <!-- responsive nav button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <!-- /responsive nav button -->
+                    
+                    <!-- logo -->
+                    <div>
+                        <a href="{% url 'main:main'%}" >
+                            <h4 style="color:white; font-size:24px;"><span style="color:red">i</span>Lost.Kg</h4>
+                        </a>
+                    </div>
+                    <!-- /logo -->
+                </div>
+
+                <!-- main nav -->
+                <nav class="collapse navbar-collapse navbar-right" role="navigation">
+                    <div >
+                        <ul id="nav" class="nav navbar-nav">
+                            <li class="scroll"><a href="{%url 'main:main'%}#about" data-section="#about">О нас</a></li>
+                            <li class="scroll"><a href="{%url 'main:main'%}#portfolio" data-section="#portfolio">Как это работает</a></li>
+                            <li class="scroll"><a href="{%url 'main:main'%}#contact-area" data-section="#contact-area">Обратная связь</a></li>   
+                        </ul>
+                    </div>
+                </nav>
+                <!-- /main nav -->
+            
+                
+            </div>
+        </header>
+    <section id="about">
+        <div class="container">
+            <div class="row">
+                <div class="section-header">
+                    <h2 class="section-title text-center wow fadeInDown animated" style="visibility: visible;">{{message}}</h2>
+                    <p class="text-center wow fadeInDown animated" style="visibility: visible;">Пожалуйста заполните все поля .</p>
+                </div>
+                <form name="contact-form" method="post" action="{% url 'main:activate' %}">
+                {% csrf_token %}
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-6 animated animate-from-left" style="opacity: 1; left: 0px;">
+
+                        <div class="form-group">
+                                <label for="name">Ф.И.О</label>
+                                <input id="name" type="text" name="name" class="form-control" placeholder="Ариет Нышанбаев" required>
+                            </div>
+                        <div class="form-group">
+                                <label for="email">Email адрес</label>
+                                <input type="email" id="email" name="email" class="form-control" placeholder="kira.1sp@gmail.com" required>
+                            </div>
+                        <div class="form-group">
+                            <label for="subject">Номер телефона</label>
+                            <input type="text" id="subject" name="telephone" class="form-control" placeholder="0556606737" required>
+                        </div>
+                        <input type="hidden" value="{{card_id}}" name="card_id" required>
+                        
+                        <br>
+                        <div class="text-center">
+                              <button type="submit" class="form-control btn btn-primary btn-lg ">Активировать</button>
+                        </div>
+
+
+                    </div>
+                    
+
+                </form>
+
+            </div>
+        </div>
+    </section><!--/#about-->
+
+    <footer id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <p class="text-center">
+                        &copy; 2015 iLost.kg </a>
+                    </p>
+                    <p style="display:none">
+                        Ari and JZ)
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer><!--/#footer-->
+
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/mousescroll.js' %}"></script>
+    <script src="{% static 'js/jquery.prettyPhoto.js' %}"></script>
+    <script src="{% static 'js/jquery.isotope.min.js' %}"></script>
+    <script src="{% static 'js/jquery.inview.min.js' %}"></script>
+    <script src="{% static 'js/wow.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+
+</body>
+</html>
