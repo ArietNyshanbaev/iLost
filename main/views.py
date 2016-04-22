@@ -124,3 +124,9 @@ def signin(request):
 			return render(request, 'main/signin.html', args)
 	else:
 		return render(request, 'main/signin.html', args)
+
+@login_required(login_url=reverse_lazy('main:main'))
+def signout(request):
+
+	logout(request)
+	return redirect(request.META.get('HTTP_REFERER'))

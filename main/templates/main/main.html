@@ -64,7 +64,7 @@
                             <li class="scroll"><a href="#contact-area" data-section="#contact-area">Обратная связь</a></li>   
                             {% if user.is_authenticated %}
                             <li class="scroll"><a href="#portfolio">Мой профиль</a></li>
-                            <li class="scroll"><a href="#contact-area">Выйти</a> </li>
+                            <li><a href="{% url 'main:signout' %}">Выйти</a> </li>
                             {% else %}
                             <li><a href="{% url 'main:signin' %}">Войти</a></li>
                             <li class="scroll"><a href="#contact-area">Зарегистрироваться</a></li>

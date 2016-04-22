@@ -10,6 +10,7 @@ urlpatterns = patterns('',
     url(r'^activate$', 'main.views.activate',name='activate'),
     url(r'^message$', 'main.views.message',name='message'),
     url(r'^signup$', 'main.views.message',name='message'),
+    url(r'^signout$', 'main.views.signout',name='signout'),
     url(r'^signin$', 'main.views.signin',name='signin'),
     url(r'^profile$', 'main.views.message',name='message'),
 
